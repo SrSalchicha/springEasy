@@ -13,4 +13,6 @@ for this, you need to enter the project name (if you put "project-demo", you nee
 
 then you can run: ```spe g -help``` or ```spe dto -help```
 
+dont forget use the comands in the root of the project 
+
 ### have fun
