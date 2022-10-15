@@ -2,7 +2,7 @@
 generate java spring classes faster than lightning
 
 ### how to use
-run ./installer.sh in /installer for install spring easy 
+run ```./installer.sh``` in /installer for install spring easy 
 select the directory path and then you can run ```spe``` comand in bash
 
 ### first steps
