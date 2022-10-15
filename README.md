@@ -18,6 +18,6 @@ then you can run: ```spe g -help``` or ```spe dto -help```
 
 dont forget use the comands in the root of the project 
 
-![image](https://user-images.githubusercontent.com/62081821/196004480-8e0c57bf-1fda-465d-8584-30a6e329b3c8.png)
+![image](https://user-images.githubusercontent.com/62081821/196004502-f9980ee2-a22f-47ab-b5a6-12fde83503f1.png)
 
 ### have fun
