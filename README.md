@@ -1,5 +1,5 @@
 # springEasy
-generate java spring classes faster than lightning
+generate java spring classes 
 
 ### how to use
 run ```./installer.sh``` in /installer for install spring easy, 
