@@ -1,15 +1,12 @@
-echo "this is a simple script for work with java springbook"
+echo "this is a simple script for work with java spring boot"
 echo "Auth: Jorge Brandon Chandomi Esponda"
 echo ""
 
 readonly comand=$1
 readonly secondParam=$2
-projectName=""
 
-if [ projectName = "" ]; then 
-    echo "? Enter the project name"
-    read -e -p "> " projectName
-fi
+echo "? Enter the project name"
+read -e -p "> " projectName
 
 if [ $comand = "init" ]; then
     echo "generating work three"
@@ -82,7 +79,7 @@ if [ $comand = "init" ]; then
             spring.datasource.url=$databaseName
             spring.datasource.username=$userName
             spring.datasource.password=$password
-            " >> src/main/resources/application.propieties
+            " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/resources/application.propieties
 
             echo "SUCCESS: please configure the maven dependencies for mysql
             <dependency>
@@ -98,71 +95,121 @@ if [ $comand = "init" ]; then
     done
 fi
 
-if [ $comand == "g" ]; then 
+if [ $comand = "g" ]; then 
     case $secondParam in 
         controller)
-            break
-        ;;
-        dto)
-            break
+            nameParam=$3
+            touch controllers/$3Controller.java
+            echo -e 'package com.example.'$projectName'.controllers; \n
+            @RestController
+            @RequestMapping("'$nameParam'")
+            public class '$nameParam'Controller{}' | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/$3Controller.java
         ;;
         entity)
-            break
-        ;;
-        repository)
-            break
+            nameParam=$3
+            touch entities/$nameParam.java
+            echo -e "package com.example.$projectName.entities; \n
+            public class "$nameParam"{}" | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> entities/$nameParam.java
+
+            read -e -p "generate repository? Y/n " YoN
+            if [ YoN = "y" ]; then 
+                touch repositories/I$3Repository.java
+                echo -e "package com.example."$projectName".repositories; \n
+                import com.example.$proyectName.entities.$3; \n
+                import org.springframework.data.jpa.repository.JpaRepository; \n
+                import org.springframework.stereotype.Repository; \n
+                public interface I$3Repository extends JpaRepository<$3, Long>{}
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> repositories/I$3Repository.java
+            fi
         ;;
         service)
-            break
+            nameParam=$3
+            touch services/interfaces/I$3Service.java
+            echo -e "package com.example.$projectName.services.interfaces; \n
+            public interface I$3Service{}
+            " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> services/interfaces/I$3Service.java
+
+            touch services/$3ServiceImpl.java
+            echo -e "package com.example.$projectName.services;
+            import com.example.$projectName.services.interfaces.I$3Service;
+            \npublic class $3ServiceImpl implements I$3Service{}
+            " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> services/$3ServiceImpl.java
         ;;
-        serviceI)
-            break
+        -help)
+            echo -e "params for spe g: 
+
+            controller <name>       Generate rest controller
+            entity <name>           Generate entity and repository
+            service <name>          Generate service inteface and servide implements
+
+            you can try: spe g controller <name>" | awk '{gsub(/^[ \t]+/,""); print$0, ""}'
         ;;
         *)
-            break
+            echo "invaid option $REPLY see: spe g -help for more information"
         ;;
     esac
 fi
 
 
-if [ $comand == "RR" ]; then 
+if [ $comand = "dto" ]; then 
     case $secondParam in 
         rq)
             nameParam=$3
-            if [ $nameParam == ""]; 
+            if [ $nameParam = ""]; 
             then 
-                echo "RR require a third param see: RR -help for more information"
+                echo "dto require a third param see: spe dto -help for more information"
             else
                 echo "generating | request | $projectName"
-                touch controllers/dtos/request/Create$1Request.java
+                touch controllers/dtos/request/Create$3Request.java
                 echo -e "package com.example.$projectName.controllers.dtos.request; \n
-                public class Create"$name"Request{}" >> controllers/dtos/request/Create$1Request.java
+                public class Create"$nameParam"Request{}
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/request/Create$3Request.java
             fi
-            break
             ;;
         rp)
-            echo "generating | response | $projectName"
-            break
+            nameParam=$3
+            if [ $nameParam = ""]; 
+            then 
+                echo "dto require a third param see: spe dto -help for more information"
+            else
+                echo "generating | response | $projectName"
+                touch controllers/dtos/response/Create$3Response.java
+                echo -e "package com.example.$projectName.controllers.dtos.response; \n
+                public class Create"$nameParam"Response{}
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/response/Create$3Response.java
+            fi
             ;;
         bt)
-            echo "generating | request/response | $projectName"
-            break
+            nameParam=$3
+            if [ $nameParam = ""]; 
+            then 
+                echo "dto require a third param see: spe dto -help for more information"
+            else
+                echo "generating | request/response | $projectName"
+                
+                touch controllers/dtos/request/Create$3Request.java
+                echo -e "package com.example.$projectName.controllers.dtos.request; \n
+                public class Create"$nameParam"Request{}
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/request/Create$3Request.java
+
+                touch controllers/dtos/response/Create$3Response.java
+                echo -e "package com.example.$projectName.controllers.dtos.response; \n
+                public class Create"$nameParam"Response{}
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/response/Create$3Response.java
+            fi
             ;;
         -help)
-            echo "
-            params for SPE RR:
+            echo -e "params for spe dto: 
 
             rq <name>           Generate request
             rp <name>           Generate response
             bt <name>           Generate request and response
 
-            you can try: SPE RR RQ <name>
-            "
-            break
+            you can try: spe dto rq <name>" | awk '{gsub(/^[ \t]+/,""); print$0, ""}'
             ;;
         *) 
-            echo "invaid option $REPLY see RR -help for more information"
-            break
+            echo "invaid option $REPLY see: spe dto -help for more information"
+
             ;;
         esac
     
