@@ -7,7 +7,7 @@ select the directory path and then you can run ```spe``` comand in bash (from th
 
 ### first steps
 run: ```spe init``` after you create the spring project for create a directory tree and configure MySQL database
-you need enter the project name
+for this, you need to enter the project name (if you put "project-demo", you need to use "projectdemo") the name that you need to use can find it in this folder: 
   
 ![image](https://user-images.githubusercontent.com/62081821/196004266-6f451cfd-dded-404e-a914-7bffd7b2bd06.png)
 
