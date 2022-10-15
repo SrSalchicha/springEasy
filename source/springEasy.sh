@@ -1,6 +1,6 @@
 echo "this is a simple script for work with java spring boot"
 echo "Auth: Jorge Brandon Chandomi Esponda"
-echo ""
+echo "dont forget use spe in the root path of the project"
 
 readonly comand=$1
 readonly secondParam=$2
@@ -10,14 +10,14 @@ read -e -p "> " projectName
 
 if [ $comand = "init" ]; then
     echo "generating work three"
-    mkdir controllers
-    mkdir controllers/dtos
-    mkdir controllers/dtos/request
-    mkdir controllers/dtos/response
-    mkdir entities
-    mkdir repositories
-    mkdir services
-    mkdir services/interfaces
+    mkdir src/main/java/com/example/$projectName/controllers
+    mkdir src/main/java/com/example/$projectName/controllers/dtos
+    mkdir src/main/java/com/example/$projectName/controllers/dtos/request
+    mkdir src/main/java/com/example/$projectName/controllers/dtos/response
+    mkdir src/main/java/com/example/$projectName/entities
+    mkdir src/main/java/com/example/$projectName/repositories
+    mkdir src/main/java/com/example/$projectName/services
+    mkdir src/main/java/com/example/$projectName/services/interfaces
     
 
     echo "sugested dependencies: 
@@ -99,7 +99,7 @@ if [ $comand = "g" ]; then
     case $secondParam in 
         controller)
             nameParam=$3
-            touch controllers/$3Controller.java
+            touch src/main/java/com/example/$projectName/controllers/$3Controller.java
             echo -e 'package com.example.'$projectName'.controllers; \n
             @RestController
             @RequestMapping("'$nameParam'")
@@ -107,13 +107,13 @@ if [ $comand = "g" ]; then
         ;;
         entity)
             nameParam=$3
-            touch entities/$nameParam.java
+            touch src/main/java/com/example/$projectName/entities/$nameParam.java
             echo -e "package com.example.$projectName.entities; \n
             public class "$nameParam"{}" | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> entities/$nameParam.java
 
             read -e -p "generate repository? Y/n " YoN
             if [ YoN = "y" ]; then 
-                touch repositories/I$3Repository.java
+                touch src/main/java/com/example/$projectName/repositories/I$3Repository.java
                 echo -e "package com.example."$projectName".repositories; \n
                 import com.example.$proyectName.entities.$3; \n
                 import org.springframework.data.jpa.repository.JpaRepository; \n
@@ -124,12 +124,12 @@ if [ $comand = "g" ]; then
         ;;
         service)
             nameParam=$3
-            touch services/interfaces/I$3Service.java
+            touch src/main/java/com/example/$projectName/services/interfaces/I$3Service.java
             echo -e "package com.example.$projectName.services.interfaces; \n
             public interface I$3Service{}
             " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> services/interfaces/I$3Service.java
 
-            touch services/$3ServiceImpl.java
+            touch src/main/java/com/example/$projectName/services/$3ServiceImpl.java
             echo -e "package com.example.$projectName.services;
             import com.example.$projectName.services.interfaces.I$3Service;
             \npublic class $3ServiceImpl implements I$3Service{}
@@ -160,10 +160,10 @@ if [ $comand = "dto" ]; then
                 echo "dto require a third param see: spe dto -help for more information"
             else
                 echo "generating | request | $projectName"
-                touch controllers/dtos/request/Create$3Request.java
+                touch src/main/java/com/example/$projectName/controllers/dtos/request/Create$3Request.java
                 echo -e "package com.example.$projectName.controllers.dtos.request; \n
                 public class Create"$nameParam"Request{}
-                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/request/Create$3Request.java
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/java/com/example/$projectName/controllers/dtos/request/Create$3Request.java
             fi
             ;;
         rp)
@@ -173,10 +173,10 @@ if [ $comand = "dto" ]; then
                 echo "dto require a third param see: spe dto -help for more information"
             else
                 echo "generating | response | $projectName"
-                touch controllers/dtos/response/Create$3Response.java
+                touch src/main/java/com/example/$projectName/controllers/dtos/response/Create$3Response.java
                 echo -e "package com.example.$projectName.controllers.dtos.response; \n
                 public class Create"$nameParam"Response{}
-                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/response/Create$3Response.java
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/java/com/example/$projectName/controllers/dtos/response/Create$3Response.java
             fi
             ;;
         bt)
@@ -187,15 +187,15 @@ if [ $comand = "dto" ]; then
             else
                 echo "generating | request/response | $projectName"
                 
-                touch controllers/dtos/request/Create$3Request.java
+                touch src/main/java/com/example/$projectName/controllers/dtos/request/Create$3Request.java
                 echo -e "package com.example.$projectName.controllers.dtos.request; \n
                 public class Create"$nameParam"Request{}
-                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/request/Create$3Request.java
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/java/com/example/$projectName/controllers/dtos/request/Create$3Request.java
 
-                touch controllers/dtos/response/Create$3Response.java
+                touch src/main/java/com/example/$projectName/controllers/dtos/response/Create$3Response.java
                 echo -e "package com.example.$projectName.controllers.dtos.response; \n
                 public class Create"$nameParam"Response{}
-                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/dtos/response/Create$3Response.java
+                " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/java/com/example/$projectName/controllers/dtos/response/Create$3Response.java
             fi
             ;;
         -help)
