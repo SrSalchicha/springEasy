@@ -5,7 +5,7 @@ echo "dont forget use spe in the root path of the project"
 readonly comand=$1
 readonly secondParam=$2
 
-echo "? Enter the project name"
+echo "? Enter the project name without special characters or spaces"
 read -e -p "> " projectName
 
 if [ $comand = "init" ]; then
@@ -72,14 +72,13 @@ if [ $comand = "init" ]; then
             echo "? password"
             read -e -p "> " password
 
-            echo -e "
-            spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+            echo -e "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
             spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
             spring.jpa.hibernate.ddl-auto=update
             spring.datasource.url=$databaseName
             spring.datasource.username=$userName
             spring.datasource.password=$password
-            " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/resources/application.propieties
+            " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/resources/application.propierties
 
             echo "SUCCESS: please configure the maven dependencies for mysql
             <dependency>
