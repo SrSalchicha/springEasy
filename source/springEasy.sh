@@ -72,13 +72,13 @@ if [ $comand = "init" ]; then
             echo "? password"
             read -e -p "> " password
 
-            echo -e "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-            spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-            spring.jpa.hibernate.ddl-auto=update
-            spring.datasource.url=$databaseName
-            spring.datasource.username=$userName
-            spring.datasource.password=$password
-            " | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/resources/application.propierties
+            echo -e "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect" >> src/main/resources/application.properties
+            echo "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver" >> src/main/resources/application.properties
+            echo "spring.jpa.hibernate.ddl-auto=update" >> src/main/resources/application.properties
+            echo "spring.datasource.url=$databaseName" >> src/main/resources/application.properties
+            echo "spring.datasource.username=$userName" >> src/main/resources/application.properties
+            echo "spring.datasource.password=$password" >> src/main/resources/application.properties
+
 
             echo "SUCCESS: please configure the maven dependencies for mysql
             <dependency>
