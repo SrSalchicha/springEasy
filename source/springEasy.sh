@@ -66,7 +66,7 @@ if [ $comand = "init" ]; then
             echo "setting up database config"
             echo "? data source URL 
             example: jdbc:mysql://localhost:3306/<database name>"
-            read -e -p "> " databaseName
+            read -e -p "> " databaseName+
             echo "? user name"
             read -e -p "> " userName
             echo "? password"
@@ -102,7 +102,7 @@ if [ $comand = "g" ]; then
             echo -e 'package com.example.'$projectName'.controllers; \n
             @RestController
             @RequestMapping("'$nameParam'")
-            public class '$nameParam'Controller{}' | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> controllers/$3Controller.java
+            public class '$nameParam'Controller{}' | awk '{gsub(/^[ \t]+/,""); print$0, ""}' >> src/main/java/com/example/$projectName/controllers/$3Controller.java
         ;;
         entity)
             nameParam=$3
